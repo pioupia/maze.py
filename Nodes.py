@@ -6,62 +6,58 @@ Coords = Tuple[int, int]
 
 class Nodes:
     def __init__(self, coords: Coords, distance: int = 0):
-        # Coordonnée x
+        # X coords
         self.x: int = coords[0]
 
-        # Coordonnée y
+        # Y coords
         self.y: int = coords[1]
 
-        # Distance par rapport au point de sortie
+        # Distance of the exit point
         self.distance: int = distance
 
-        # Liste des voisins
-        self.voisins: List[Nodes] = []
+        # Neighbor list
+        self.neighbor: List[Nodes] = []
 
     def set_distance(self, distance: int) -> None:
         """
-        Permet de définir une nouvelle distance par rapport au point de sortie
+        Allows you to define a new distance from the exit point
 
         :param distance: int
         :return: None
         """
         self.distance = distance
 
-    def add_voisin(self, voisin: 'Nodes') -> 'Nodes':
+    def add_voisin(self, neighbor: 'Nodes') -> 'Nodes':
         """
-        Permet d'ajouter un voisin (unique) s'il n'est pas déjà dans la liste
-        des voisins.
+        Allows you to add another (unique) neighbor if its not already in the
+        neighbor list
 
-        :param voisin: 'Nodes'
+        :param neighbor: 'Nodes'
         :return: 'Nodes'
         """
-        # Si le voisin à ajouter existe déjà, on ne fait rien
-        if voisin in self.voisins:
+        if neighbor in self.neighbor:
             return self
 
-        # Sinon on l'ajoute
-        self.voisins.append(voisin)
+        self.neighbor.append(neighbor)
         return self
 
 
 def get_min_distance(points: List[Nodes]) -> Nodes | None:
     """
-    Permet de récupérer le point ayant la plus faible distance
-    du point de sortie.
+    Allows you to get the point with the shortest distance from the exit point.
 
     :param points: List[Nodes]
     :return: Nodes | None
     """
-    # Aucun voisin (normalement le cas n'existe pas).
     if len(points) == 0:
         return None
 
-    # Le point le plus proche est le premier voisin
+    # The nearest point is the first neighbour
     near_point = points[0]
     for point in points:
-        # Si le point actuel est plus proche que notre point "le plus proche")
+        # If the current point is closer than our "closest" point)
         if point.distance < near_point.distance:
-            # Alors on le définit en tant que "notre point le plus proche"
+            # So we define it as "our nearest point".
             near_point = point
 
     return near_point
