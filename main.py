@@ -103,7 +103,7 @@ class Waze:
         :return: None
         """
         # Get all the neighbor of the actual point
-        for voisin in point.voisins:
+        for voisin in point.neighbor:
 
             # If the algorithm found the starting point before the other points
             # and the starting point distance is nearest than the actual distance
@@ -209,7 +209,7 @@ class Waze:
         # While it not complete
         while start != end:
             # We're taking the nearest neighbor of this point which has the lowest distance from the exit.
-            start = get_min_distance(start.voisins)
+            start = get_min_distance(start.neighbor)
 
             # If he found nothing. No path.
             if start is None:
